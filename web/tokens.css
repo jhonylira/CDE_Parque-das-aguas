@@ -1,0 +1,93 @@
+/* =====================================================================
+   Parque das Águas · Sistema visual compartilhado
+   ---------------------------------------------------------------------
+   Este arquivo concentra as "decisões de design" usadas pelas três
+   páginas (conceito, explorar 3D e mapa técnico). Mudou uma cor aqui,
+   ela muda em todo o site.
+   ===================================================================== */
+
+/* ---------- Fontes locais (funcionam sem internet / file://) ---------- */
+@font-face{font-family:"Instrument Sans";src:url(fonts/instrument-sans-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url(fonts/instrument-sans-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url(fonts/instrument-sans-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url(fonts/instrument-sans-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+
+:root{
+  /* Cores da marca */
+  --forest:#122821;      /* verde-floresta: fundos escuros, texto forte */
+  --forest-2:#1c3a30;    /* variação para superfícies escuras */
+  --forest-3:#2b4a3e;
+  --cream:#efeee5;       /* fundo principal claro */
+  --paper:#f8f7f1;       /* cartões claros */
+  --sage:#dae2d1;        /* faixas técnicas */
+  --ink:#172722;         /* texto principal */
+  --muted:#51645b;       /* texto secundário */
+  --border:#cbd1c3;
+  --lime:#d8ed9f;        /* destaque / ação principal */
+  --lime-ink:#122821;
+  --water:#2f9fc4;       /* rio e canal: a cor que faltava na identidade */
+  --water-soft:#d5ebf1;
+  --alert:#d9532f;       /* sobreposições e interferências */
+  --alert-soft:#f8e1d8;
+
+  /* Tipografia */
+  --font-sans:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+  --font-serif:"Instrument Serif",Georgia,serif;
+
+  /* Espaçamentos (escala de 4 px) */
+  --s1:.25rem;--s2:.5rem;--s3:.75rem;--s4:1rem;--s5:1.5rem;--s6:2rem;--s7:3rem;--s8:4rem;
+
+  /* Formas */
+  --radius-s:6px;--radius-m:12px;--radius-l:20px;--radius-pill:999px;
+  --shadow-s:0 2px 8px #12282114;
+  --shadow-m:0 10px 32px #1228212a;
+
+  /* Movimento */
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --dur:.25s;
+
+  /* Altura do cabeçalho (usada para ancoragem) */
+  --header-h:60px;
+}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(var(--header-h) + 12px)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ---------- Link "pular para o conteúdo" (acessibilidade) ---------- */
+.skip-link{position:fixed;left:var(--s4);top:-60px;z-index:100;padding:.6rem .9rem;border-radius:var(--radius-s);background:var(--lime);color:var(--lime-ink);font:600 .9rem var(--font-sans);text-decoration:none;transition:top var(--dur) var(--ease)}
+.skip-link:focus{top:var(--s3)}
+
+/* ---------- Cabeçalho único do site ---------- */
+.site-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:var(--s4);min-height:var(--header-h);padding:.55rem clamp(1rem,5vw,5rem);background:color-mix(in srgb,var(--forest) 94%,transparent);color:#f8f6eb;backdrop-filter:blur(12px);font-family:var(--font-sans)}
+.brand{display:flex;align-items:center;gap:.6rem;color:inherit;text-decoration:none;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+.brand-mark{width:28px;height:28px;flex:none}
+.brand small{display:block;font-weight:400;font-size:.72rem;opacity:.72;letter-spacing:0}
+.site-nav{display:flex;align-items:center;gap:.25rem}
+.site-nav a{padding:.45rem .7rem;border-radius:var(--radius-pill);color:inherit;text-decoration:none;font-size:.9rem;white-space:nowrap;transition:background var(--dur) var(--ease)}
+.site-nav a:hover{background:#ffffff1a}
+.site-nav a[aria-current=page]{background:var(--lime);color:var(--lime-ink);font-weight:600}
+.site-nav .sep{width:1px;height:20px;background:#ffffff33;margin:0 .35rem}
+.menu-toggle{display:none;align-items:center;gap:.4rem;border:1px solid #ffffff40;border-radius:var(--radius-pill);background:transparent;color:inherit;padding:.45rem .8rem;font:600 .85rem var(--font-sans);cursor:pointer}
+.menu-toggle svg{width:18px;height:18px}
+@media (max-width:860px){
+  .menu-toggle{display:inline-flex}
+  .site-nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;padding:var(--s2) var(--s4) var(--s4);background:var(--forest);box-shadow:var(--shadow-m)}
+  .site-nav a{padding:.75rem .9rem;border-radius:var(--radius-s);font-size:1rem}
+  .site-nav .sep{width:auto;height:1px;margin:.35rem 0}
+  .site-header:not(.is-open) .site-nav{display:none}
+}
+
+/* ---------- Foco visível consistente ---------- */
+:where(a,button,input,select,summary,[tabindex]):focus-visible{outline:2px solid var(--water);outline-offset:3px}
+
+/* ---------- Lightbox (ampliar pranchas) ---------- */
+.lightbox{border:0;padding:0;max-width:min(96vw,1600px);max-height:94vh;background:transparent;overflow:visible}
+.lightbox::backdrop{background:#0b1714e6;backdrop-filter:blur(4px)}
+.lightbox img{display:block;max-width:100%;max-height:86vh;margin:auto;border-radius:var(--radius-s);background:#fff}
+.lightbox p{margin:.7rem 0 0;color:#e8efe6;font:400 .9rem/1.45 var(--font-sans);text-align:center}
+.lightbox-close{position:absolute;top:-14px;right:-14px;width:40px;height:40px;border-radius:50%;border:0;background:var(--lime);color:var(--lime-ink);font:700 1.3rem/1 var(--font-sans);cursor:pointer;box-shadow:var(--shadow-m)}
+[data-zoom]{cursor:zoom-in}

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parque das Águas | Mapa técnico de compatibilização</title>
+<meta name="description" content="Mapa técnico do Parque das Águas: ortofoto, APP, cadastro, loteamentos, projeto e interferências em triagem.">
+<meta name="theme-color" content="#122821">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="mapa.css">
+<script defer src="site.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#map-area">Pular para o mapa</a>
+<header class="site-header">
+  <a class="brand" href="conceito.html"><img class="brand-mark" src="favicon.svg" alt="" width="28" height="28"><span>Parque das Águas<small>Guaramirim · SC</small></span></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Menu</button>
+  <nav class="site-nav" id="site-nav" aria-label="Principal"><a href="conceito.html">Conceito</a><a href="explorar.html">Explorar 3D</a><a href="index.html" aria-current="page">Mapa técnico</a></nav>
+</header>
+
+<main class="map-layout">
+<aside class="map-panel" aria-label="Camadas e interferências">
+  <div class="panel-head">
+    <h1>Mapa técnico</h1>
+    <p>Estudo de compatibilização · SIRGAS 2000 / UTM 22S</p>
+  </div>
+
+  <section class="panel-section">
+    <h2>Interferências em triagem <span class="count" id="occ-count"></span></h2>
+    <div id="occurrences" class="occ-list"></div>
+    <div id="details" class="details" aria-live="polite"><p>Selecione uma ocorrência ou clique em uma feição do mapa para consultar seus dados.</p></div>
+    <a class="download" href="../interferencias.csv" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Baixar tabela de interferências (CSV)</a>
+  </section>
+
+  <section class="panel-section">
+    <h2>Camadas</h2>
+    <label class="opacity" for="ortho-opacity"><span>Ortofoto</span><input id="ortho-opacity" type="range" min="0" max="100" value="100"><output for="ortho-opacity" id="ortho-value">100%</output></label>
+    <div id="controls" class="layer-groups"></div>
+  </section>
+
+  <details class="tech-note">
+    <summary>Notas técnicas</summary>
+    <p>Recorte de triagem. Confira Giardino e a referência Guaramirim do QGIS alternando as camadas. Urbanismo, projeto legal, canal e InfraWorks aguardam validação de posicionamento. Os pontos destacados coincidem com a ponte visível na ortofoto; a condição existente ou projetada precisa ser conferida no desenho. Áreas servem à triagem, com limites e identificadores sujeitos à validação cadastral.</p>
+  </details>
+</aside>
+
+<section class="map-area" id="map-area" aria-label="Visualização">
+  <div class="toolbar">
+    <div class="segmented" role="group" aria-label="Vistas">
+      <button data-mode="map" aria-pressed="true">Mapa por camadas</button><button data-mode="planta" aria-pressed="false">Planta renderizada</button><button data-mode="obliqua" aria-pressed="false">Vista oblíqua</button>
+    </div>
+    <div class="zoom" role="group" aria-label="Zoom"><button id="zoom-in" aria-label="Aproximar">+</button><button id="zoom-out" aria-label="Afastar">−</button><button id="reset">Enquadrar</button></div>
+  </div>
+  <div class="map-stage">
+    <svg id="map" role="img" aria-label="Ortofoto com cadastro, projeto e interferências"></svg>
+    <img id="render" alt="" hidden>
+    <div class="map-north" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18"/><path d="M20 6l5 14h-10z" fill="#d9532f"/><path d="M20 34l-5-14h10z" fill="#9aa9a1"/><text x="20" y="5">N</text></svg></div>
+    <div class="map-scale" id="map-scale" aria-hidden="true"><span class="bar"></span><span class="label"></span></div>
+    <div class="map-coords" id="map-coords" aria-live="off"></div>
+    <p class="map-hint">Arraste para mover · role ou use pinça para aproximar · clique em uma feição para ver seus dados</p>
+  </div>
+</section>
+</main>
+<script src="camadas.js"></script>
+<script src="mapa.js"></script>
+</body>
+</html>

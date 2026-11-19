@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parque das Águas | Maquete 3D</title>
+<meta name="description" content="Maquete 3D navegável do Parque das Águas (Guaramirim, SC): cenários existente e proposta, percurso pela Via Parque, canoagem e equipamentos.">
+<meta name="theme-color" content="#122821">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="projeto.css">
+<link rel="stylesheet" href="explorar.css">
+<script defer src="parque-modelo.js"></script>
+<script defer src="explorar.bundle.js"></script>
+</head>
+<body class="explorer">
+<a class="skip-link" href="#viewer-panel">Pular para os controles</a>
+<main class="viewer">
+<section class="viewport" id="viewport" aria-label="Modelo 3D navegável">
+  <div id="viewer-status" class="loading-card" role="status">
+    <img src="favicon.svg" alt="" width="40" height="40">
+    <strong id="viewer-status-text">Carregando a maquete…</strong>
+    <span class="loading-bar" aria-hidden="true"><i></i></span>
+    <small>O modelo tem cerca de 25 MB. Na primeira abertura pode levar alguns segundos.</small>
+  </div>
+  <div id="scene-pins" aria-label="Pinos de equipamentos"></div>
+  <div id="site-detail" class="overlay site-note" aria-live="polite" hidden><p id="site-detail-text"></p><button type="button" id="site-detail-close" aria-label="Fechar detalhe">×</button></div>
+  <div id="compass" class="compass" title="Norte" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19"/><path class="n" d="M20 5l5 15h-10z"/><path class="s" d="M20 35l-5-15h10z"/><text x="20" y="4.2">N</text></svg></div>
+</section>
+<header class="explorer-header">
+  <a class="project-id" href="conceito.html"><img src="favicon.svg" alt="" width="30" height="30"><span><strong>Parque das Águas</strong><small>Guaramirim · Etapas 02 e 03</small></span></a>
+  <nav aria-label="Principal"><a href="conceito.html">Conceito</a><a href="explorar.html" aria-current="page">Explorar 3D</a><a href="index.html">Mapa técnico</a><button type="button" id="panel-toggle" aria-controls="viewer-panel" aria-expanded="true">Painel</button></nav>
+</header>
+<aside id="viewer-panel" aria-label="Controles da maquete">
+  <div class="panel-grip" aria-hidden="true"></div>
+  <div class="panel-title"><h1>Explorar o parque</h1><button id="close-panel" type="button" aria-label="Recolher painel">×</button></div>
+
+  <div class="appearance scenario" role="group" aria-label="Cenário">
+    <button type="button" data-scenario="existing" aria-pressed="false">Existente</button>
+    <button type="button" data-scenario="proposal" aria-pressed="true">Proposta humanizada</button>
+  </div>
+
+  <details open class="control-group">
+    <summary>Lugares</summary>
+    <div class="view-grid places"><button id="overview" type="button" aria-pressed="true"><kbd aria-hidden="true">1</kbd>Vista geral</button><button id="plan" type="button" aria-pressed="false"><kbd aria-hidden="true">2</kbd>Planta</button><button id="road" type="button" aria-pressed="false"><kbd aria-hidden="true">3</kbd>Gabarito</button><button id="roundabout" type="button" aria-pressed="false"><kbd aria-hidden="true">4</kbd>Rotatória</button><button id="canoe" type="button" aria-pressed="false"><kbd aria-hidden="true">5</kbd>Canoagem</button></div>
+  </details>
+
+  <details id="program-panel" class="control-group">
+    <summary>Equipamentos · layout R00</summary>
+    <label for="pin-select">Equipamento</label>
+    <select id="pin-select"><option value="">Selecione no mapa ou na lista</option></select>
+    <div id="program-map" aria-label="Layout R00 com os pinos do programa"><img src="layout-r00.jpg" alt="Implantação conceitual do parque na prancha 27" width="698" height="337"></div>
+    <p class="program-caption">Posições indicativas da prancha 27.</p>
+  </details>
+
+  <details open class="control-group">
+    <summary>Camadas</summary>
+    <div class="toggles">
+      <p class="toggle-group">Proposta</p>
+      <label><input type="checkbox" data-layer="Via" data-swatch="linear-gradient(90deg,#cbc2a8 0 25%,#3f4946 25% 75%,#cbc2a8 75%)" checked> Via Parque · 18 m</label>
+      <label><input type="checkbox" data-layer="Micromobilidade" data-swatch="#c8613f" checked> Micromobilidade · 5 m</label>
+      <label><input type="checkbox" data-layer="Paisagismo" data-swatch="#5f8f4e" checked> Gramado e arborização</label>
+      <label><input type="checkbox" data-layer="Equipamentos" data-swatch="#224638" checked> Equipamentos e pinos</label>
+      <label><input type="checkbox" data-layer="Humanizacao" data-swatch="#b9a27a" checked> Pessoas e veículos</label>
+      <p class="toggle-group">Canoagem</p>
+      <label><input type="checkbox" data-layer="Canoagem" data-swatch="#4cc6e8" checked> Canal de canoagem</label>
+      <label><input type="checkbox" data-layer="Cruzamento" data-swatch="#e2483a" checked> Sobreposição com a faixa de 5 m</label>
+      <p class="toggle-group">Referências</p>
+      <label><input type="checkbox" data-layer="Layout" data-swatch="conic-gradient(#e94f4f,#f2c14e,#52b788,#4ea8de,#e94f4f)"> Sobrepor layout R00</label>
+      <label><input type="checkbox" data-layer="Loteamentos" data-swatch="#b98ae6"> Loteamentos</label>
+      <label><input type="checkbox" data-layer="Cadastro" data-swatch="#5fcf7f"> Cadastro e APP</label>
+      <label><input type="checkbox" data-layer="Entorno" data-swatch="#d9d6cc" checked> Volumes do entorno</label>
+    </div>
+  </details>
+
+  <details open class="control-group">
+    <summary>Percorrer o eixo</summary>
+    <div class="row-2">
+      <div><label for="route">Percurso</label><select id="route"><option value="road">Via Parque</option><option value="active">Micromobilidade</option></select></div>
+      <div><label for="speed">Velocidade</label><select id="speed"><option value="15">Lenta</option><option value="40" selected>Normal</option><option value="90">Rápida</option></select></div>
+    </div>
+    <div class="view-grid"><button id="stage-02" type="button">Etapa 02</button><button id="stage-03" type="button">Etapa 03</button></div>
+    <button id="follow" type="button" aria-pressed="false">Seguir percurso</button>
+    <label class="position" for="station">Posição no percurso</label>
+    <input id="station" type="range" min="0" max="1000" value="0"><output id="station-label" for="station"></output>
+  </details>
+
+  <details open class="control-group">
+    <summary>Aparência</summary>
+    <div class="appearance" role="group" aria-label="Modo de visualização">
+      <button type="button" data-style="realistic" aria-pressed="true" title="Ortofoto e materiais originais">Realista</button>
+      <button type="button" data-style="mono" aria-pressed="false" title="Tons de cinza com detalhes da ortofoto">Monocromático</button>
+      <button type="button" data-style="solid" aria-pressed="false" title="Superfícies sem detalhe fotográfico">Cor sólida</button>
+      <button type="button" data-style="rendered" aria-pressed="false" title="Iluminação e sombras em tempo real">Renderizado</button>
+    </div>
+    <div class="toggles"><label><input type="checkbox" id="sky" checked> Céu</label></div>
+  </details>
+</aside>
+<div class="map-info"><span class="hint-mouse">Arraste para orbitar · botão direito move · role para aproximar · teclas 1–5 trocam de lugar</span><span class="hint-touch">1 dedo gira · 2 dedos aproximam e movem</span><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a></div>
+</main>
+</body>
+</html>
